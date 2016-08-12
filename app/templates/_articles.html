@@ -1,0 +1,30 @@
+<ul class="articles">
+    {% for article in articles %}
+    <li class="article">
+        <div class="article-thumbnail">
+            <a href="{{ url_for('main.user', username=article.author.username) }}">
+                <img class="img-rounded images" src="http://images.infzm.com/medias/2016/0811/105653.jpeg@120x80">
+            </a>
+        </div>
+        <div class="article-content">
+            <div class="article-date">{{ moment(article.timestamp).fromNow() }}</div>
+            <div class="article-author"><a href="{{ url_for('main.user', username=article.author.username) }}">{{ article.author.username }}</a></div>
+            <div class="article-body">{{ article.body }}</div>
+            <div class="article-footer">
+                {% if current_user == article.author %}
+                <a href="{{ url_for('main.edit', id=article.id) }}">
+                    <span class="label label-primary">Edit</span>
+                </a>
+                {% elif current_user.is_administrator() %}
+                <a href="{{ url_for('main.edit', id=article.id) }}">
+                    <span class="label label-danger">Edit [Admin]</span>
+                </a>
+                {% endif %}
+                <a href="{{ url_for('main.article', id=article.id) }}">
+                    <span class="label label-default">Permalink</span>
+                </a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

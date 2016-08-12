@@ -5,6 +5,7 @@ import os
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')              # 实现CSRF保护  Flask-WTF使用密钥生成加密令牌，再用加密令牌验证表单数据真伪
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True      # 每次请求结束后都会自动提交数据库变动
+    FLASK_ARTICLES_PER_PAGE = 10
     # Flask-Mail 相关的配置
     MAIL_USE_TLS = True
     MAIL_USE_SSL = True
